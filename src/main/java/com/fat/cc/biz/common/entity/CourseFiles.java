@@ -16,6 +16,9 @@ public class CourseFiles extends BaseEntity {
     //文件名
     private String fileName;
 
+    //文件类型
+    private String fileType;
+
     //文件的uri
     private String fileUri;
 

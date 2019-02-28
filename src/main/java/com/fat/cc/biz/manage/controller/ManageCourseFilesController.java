@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Api(value = "manage-course-files", description = "课程资源管理")
@@ -37,6 +39,7 @@ public class ManageCourseFilesController {
         if (file.isEmpty()) {
             return ApiReview.fail("上传失败，文件不存在！");
         }
+        String fileContentType = file.getContentType();
         //源文件名
         String originalFilename = file.getOriginalFilename();
         //后缀(.xxx)
@@ -54,7 +57,10 @@ public class ManageCourseFilesController {
             e.printStackTrace();
             return ApiReview.fail("文件上传失败！");
         }
-        return ApiReview.success(uri);
+        Map<String, Object> map = new HashMap<>();
+        map.put("uri", uri);
+        map.put("fileType", fileContentType);
+        return ApiReview.success(map);
     }
 
     @ApiOperation("添加课程资源")
